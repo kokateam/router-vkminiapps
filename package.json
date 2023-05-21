@@ -1,0 +1,42 @@
+{
+  "name": "@kokateam/router-vkminiapps",
+  "version": "0.0.2",
+  "description": "Routing library for VK Mini Apps",
+  "main": "lib/index.js",
+  "repository": "https://github.com/kokateam/router-vkminiapps",
+  "author": "Aleksandr Kuznetsov <reyzi@internet.ru>",
+  "keywords": [
+    "react",
+    "vkontakte",
+    "vk",
+    "vkui",
+    "vkminiapps",
+    "miniapps",
+    "router",
+    "routing"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepare": "yarn build"
+  },
+  "dependencies": {
+    "recoil": "^0.7.7"
+  },
+  "peerDependencies": {
+    "@vkontakte/vk-bridge": ">=2.4.4",
+    "@vkontakte/vkui": ">=4.0.0",
+    "react": ">=17.0.0",
+    "react-dom": ">=17.0.0"
+  },
+  "devDependencies": {
+    "@vkontakte/vk-bridge": ">=2.4.4",
+    "@vkontakte/vkui": ">=4.0.0",
+    "prettier": "^2.8.8",
+    "react": ">=17.0.0",
+    "react-dom": ">=17.0.0",
+    "typescript": "^4.4.2"
+  }
+}
