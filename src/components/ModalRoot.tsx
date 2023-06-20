@@ -32,7 +32,7 @@ const ModalRoot: FC<ModalRootProps> = (props) => {
       activeModal={activeModal}
       onClose={() => {
         toModal(-1);
-        props.onClose();
+        props.onClose && props.onClose();
       }}
       {...props}
     >
