@@ -49,14 +49,14 @@ export const useView = selector<string | number>({
     }
 
     if (view === "@kokateam/router_event_back") {
-      activeView = viewsHistory.slice(-1)[0];
-      history = HistoryBackViews(old.back_step, history); // функция удаляет N View вместе с их Panel's
-
       const viewsDeleting = viewsHistory.splice(old.back_step);
       // история таких панелей возвращается в изначальное состояние
       viewsDeleting.map(
         (key) => (viewsPanels[key] = structureRouter.panels[key].slice(0, 1))
       );
+
+      activeView = viewsHistory.slice(-1)[0];
+      history = HistoryBackViews(old.back_step, history); // функция удаляет N View вместе с их Panel's
     } else {
       if (!structureRouter.views.includes(view as string)) {
         return console.error(
