@@ -38,3 +38,11 @@ export interface RouterModalI {
     value: string | number;
   };
 }
+
+export interface RouterHooksI {
+  toView: RouterViewI["toView"];
+  toPanel: RouterPanelI["toPanel"];
+  toPopout: RouterPopoutI["toPopout"];
+  toModal: RouterModalI["toModal"];
+  toBack: (step: number | string) => RouterBackI;
+}

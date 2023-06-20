@@ -14,6 +14,7 @@ import {
   RouterViewI,
   RouterPopoutI,
   RouterModalI,
+  RouterHooksI,
 } from "./interfaces";
 
 export const useRouterView = (): RouterViewI => {
@@ -89,4 +90,14 @@ export const useRouterModal = (): RouterModalI => {
   };
 
   return <RouterModalI>{ activeModal, toModal };
+};
+
+export const useRouterHooks = (): RouterHooksI => {
+  const { toView } = useRouterView();
+  const { toPanel } = useRouterPanel();
+  const { toPopout } = useRouterPopout();
+  const { toModal } = useRouterModal();
+  const toBack = useRouterBack();
+
+  return { toView, toPanel, toPopout, toModal, toBack };
 };
