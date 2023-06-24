@@ -1,9 +1,14 @@
 import React, { FC, useEffect } from "react";
 import { useRecoilState } from "recoil";
 
-import { Epic as VKEpic, EpicProps } from "@vkontakte/vkui";
+import { Epic as VKEpic } from "@vkontakte/vkui";
 import bridge from "@vkontakte/vk-bridge";
 import { structure, history } from "../storage/atoms";
+
+interface EpicProps extends React.HTMLAttributes<HTMLDivElement> {
+  tabbar?: React.ReactNode;
+  children: React.ReactNode;
+}
 
 const Epic: FC<EpicProps> = (props) => {
   const [, setStructure] = useRecoilState(structure);
