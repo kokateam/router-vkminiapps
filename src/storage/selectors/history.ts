@@ -263,6 +263,13 @@ export const useBack = selector<number | string>({
           viewsHistory.splice(viewsHistory.lastIndexOf(element.id), 1);
         }
 
+        if (viewsPanels[element.id].length === 0) {
+          historyDeleting = historyDeleting.filter(
+            (el) => el.main_view !== element.id
+          ); // удаляем все панели, которые должны быть удалены, т.к. история вьюшки уже пустая
+          viewsPanels[element.id] = [structureState.panels[element.id][0]]; // ставим по дефолту значение `[first_panel]`
+        }
+
         historyDeleting = historyDeleting.filter((el) =>
           el.type === "view" ? el.id !== element.id : el.main_view !== el.id
         );
