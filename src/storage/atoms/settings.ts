@@ -1,7 +1,7 @@
 import { atom } from "recoil";
 
 const _ = atom({
-  key: "@kokateam/settingsState",
+  key: "@kokateam/router-vkminiapps/atoms/BhoZc4",
   default: {
     isSwipeBack: true,
     isInternal: false,

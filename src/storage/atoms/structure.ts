@@ -1,7 +1,7 @@
 import { atom } from "recoil";
 
 const _ = atom({
-  key: "@kokateam/structureState",
+  key: "@kokateam/router-vkminiapps/atoms/82kWuD",
   default: {
     views: [] as string[],
     panels: {},

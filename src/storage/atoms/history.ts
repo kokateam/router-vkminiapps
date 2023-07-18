@@ -2,7 +2,7 @@ import { atom } from "recoil";
 import { ReactNode } from "react";
 
 const _ = atom({
-  key: "@kokateam/historyState",
+  key: "@kokateam/router-vkminiapps/atoms/baJJ1m",
   default: {
     back_step: 0,
     back_action: "",

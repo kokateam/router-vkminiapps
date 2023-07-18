@@ -6,7 +6,7 @@ import { isElementsAfter, isNum, HistoryBackViews } from "../../utils";
 import bridge from "@vkontakte/vk-bridge";
 
 export const useView = selector<string | number>({
-  key: "@kokateam/useView",
+  key: "@kokateam/router-vkminiapps/selectors/GgxMyJ",
   get: ({ get }) => get(AtomHistory).activeView,
   set: ({ set, get }, view) => {
     // потому что recoil не дает нормально указать типы для view ¯\_(ツ)_/¯
@@ -109,7 +109,7 @@ export const useView = selector<string | number>({
 });
 
 export const usePanel = selector<{ active: string; panels: string[] }>({
-  key: "@kokateam/usePanel",
+  key: "@kokateam/router-vkminiapps/selectors/DFqrXd",
   // @ts-ignore
   get: ({ get }) => {
     const state = get(AtomHistory);
@@ -198,7 +198,7 @@ export const usePanel = selector<{ active: string; panels: string[] }>({
 });
 
 export const useBack = selector<number | string>({
-  key: "@kokateam/useBack",
+  key: "@kokateam/router-vkminiapps/selectors/uO9ycL",
   get: () => 1,
   set: ({ set, get }, step) => {
     const old = get(AtomHistory);
@@ -321,7 +321,7 @@ export const useBack = selector<number | string>({
 });
 
 export const usePopout = selector<ReactNode | null | undefined>({
-  key: "@kokateam/usePopout",
+  key: "@kokateam/router-vkminiapps/selectors/HC8Z1n",
   get: ({ get }) => get(AtomHistory).activePopout,
   set: ({ set, get }, popout) => {
     const old = get(AtomHistory);
@@ -352,7 +352,7 @@ export const usePopout = selector<ReactNode | null | undefined>({
 });
 
 export const useModal = selector<string | null | number>({
-  key: "@kokateam/useModal",
+  key: "@kokateam/router-vkminiapps/selectors/30i9Yx",
   get: ({ get }) => get(AtomHistory).activeModal,
   set: ({ set, get }, modal) => {
     const old = get(AtomHistory);
