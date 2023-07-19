@@ -1,4 +1,6 @@
 import { ReactNode } from "react";
+import { settingsAtomI } from "../storage/atoms";
+import { RouterSettingsC } from "./constants";
 
 export interface RouterViewI {
   view: string | number;
@@ -39,10 +41,18 @@ export interface RouterModalI {
   };
 }
 
+export interface RouterSettingsI<T extends settingsAtomI> {
+  settings: T;
+  setSettings: (value: T) => {
+    action: string;
+  };
+}
+
 export interface RouterHooksI {
   toView: RouterViewI["toView"];
   toPanel: RouterPanelI["toPanel"];
   toPopout: RouterPopoutI["toPopout"];
   toModal: RouterModalI["toModal"];
+  setSettings: RouterSettingsI<typeof RouterSettingsC>["setSettings"];
   toBack: (step: number | string) => RouterBackI;
 }

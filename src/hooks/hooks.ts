@@ -5,7 +5,8 @@ import {
   usePopout,
   useView,
   useModal,
-} from "../storage/selectors/history";
+  useSettings,
+} from "../storage/selectors";
 import { isNum } from "../utils";
 
 import {
@@ -15,7 +16,10 @@ import {
   RouterPopoutI,
   RouterModalI,
   RouterHooksI,
+  RouterSettingsI,
 } from "./interfaces";
+
+import { RouterSettingsC } from "./constants";
 
 export const useRouterView = (): RouterViewI => {
   const [view, toViewRouter] = useRecoilState(useView);
@@ -92,12 +96,26 @@ export const useRouterModal = (): RouterModalI => {
   return <RouterModalI>{ activeModal, toModal };
 };
 
+export const useRouterSettings = (): RouterSettingsI<
+  typeof RouterSettingsC
+> => {
+  const [settings, setState] = useRecoilState(useSettings);
+
+  const setSettings = (value) => {
+    setState(value);
+    return { action: "setSettings" };
+  };
+
+  return { settings, setSettings };
+};
+
 export const useRouterHooks = (): RouterHooksI => {
   const { toView } = useRouterView();
   const { toPanel } = useRouterPanel();
   const { toPopout } = useRouterPopout();
   const { toModal } = useRouterModal();
+  const { setSettings } = useRouterSettings();
   const toBack = useRouterBack();
 
-  return { toView, toPanel, toPopout, toModal, toBack };
+  return { toView, toPanel, toPopout, toModal, setSettings, toBack };
 };

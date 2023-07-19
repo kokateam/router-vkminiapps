@@ -4,7 +4,7 @@ import Root from "./Root";
 
 const RouterRoot: FC<RecoilRootProps> = (props) => (
   <RecoilRoot {...props}>
-    <Root>{props.children}</Root>
+    <Root props={props}>{props.children}</Root>
   </RecoilRoot>
 );
 
