@@ -1,12 +1,16 @@
 import { atom } from "recoil";
 
-const _ = atom({
+export interface structureAtomI {
+  views: Array<string>;
+  panels: object;
+  modals: Array<string>;
+}
+
+export const structure = atom<structureAtomI>({
   key: "@kokateam/router-vkminiapps/atoms/82kWuD",
   default: {
-    views: [] as string[],
+    views: [],
     panels: {},
-    modals: [] as string[],
+    modals: [],
   },
 });
-
-export default _;

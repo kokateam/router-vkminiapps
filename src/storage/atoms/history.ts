@@ -1,7 +1,23 @@
 import { atom } from "recoil";
 import { ReactNode } from "react";
 
-const _ = atom({
+export interface historyAtomI {
+  back_step: number;
+  back_action: "view" | "panel" | "back" | "";
+  activeView: string;
+  activePanel: string;
+  activeModal: string | null;
+  activePopout: ReactNode | null;
+  history: Array<{
+    id?: string;
+    component?: ReactNode;
+    type: "view" | "panel" | "popout" | "modal";
+    main_view?: string;
+  }>;
+  views: { history: Array<string>; panels: object };
+}
+
+export const history = atom<historyAtomI>({
   key: "@kokateam/router-vkminiapps/atoms/baJJ1m",
   default: {
     back_step: 0,
@@ -16,8 +32,6 @@ const _ = atom({
       type: "view" | "panel" | "popout" | "modal";
       main_view?: string;
     }>,
-    views: {} as { history: Array<string>; panels: object },
+    views: { history: [], panels: {} },
   },
 });
-
-export default _;

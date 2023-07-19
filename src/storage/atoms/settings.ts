@@ -1,6 +1,15 @@
 import { atom } from "recoil";
 
-const _ = atom({
+export interface settingsAtomI {
+  isSwipeBack: boolean;
+  isInternal: boolean;
+  isHash: boolean;
+  isBack: boolean;
+  defaultView: string;
+  defaultPanel: string;
+}
+
+export const settings = atom<settingsAtomI>({
   key: "@kokateam/router-vkminiapps/atoms/BhoZc4",
   default: {
     isSwipeBack: true,
@@ -11,5 +20,3 @@ const _ = atom({
     defaultPanel: "",
   },
 });
-
-export default _;

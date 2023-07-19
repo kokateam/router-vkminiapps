@@ -1,3 +1,3 @@
-export { default as history } from "./history";
-export { default as settings } from "./settings";
-export { default as structure } from "./structure";
+export * from "./history";
+export * from "./settings";
+export * from "./structure";

@@ -65,6 +65,7 @@ export const useView = selector<string | number>({
       }
 
       if (viewsHistory.slice(-2, -1)[0] === view) {
+        // @ts-ignore
         set(AtomHistory, {
           ...old,
           back_action: "view",
@@ -92,6 +93,7 @@ export const useView = selector<string | number>({
       history: old.views.panels[activeView].length === 1,
     });
 
+    // @ts-ignore
     set(AtomHistory, {
       ...old,
       back_action: "back",
@@ -330,7 +332,7 @@ export const usePopout = selector<ReactNode | null | undefined>({
       if (!old.activePopout)
         return console.error("[router] Активного popout и так нет.");
 
-      // шагаем назад
+      // @ts-ignore, шагаем назад
       set(AtomHistory, {
         ...old,
         back_action: "back",
