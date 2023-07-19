@@ -1,6 +1,6 @@
 {
   "name": "@kokateam/router-vkminiapps",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "Routing library for VK Mini Apps",
   "main": "lib/index.js",
   "repository": "https://github.com/kokateam/router-vkminiapps",
