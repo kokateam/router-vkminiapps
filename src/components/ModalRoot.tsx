@@ -8,7 +8,7 @@ import { useRouterModal } from "../hooks/hooks";
 
 const ModalRoot: FC<ModalRootProps> = (props) => {
   const [state, setState] = useRecoilState(structure);
-  const { activeModal, toModal } = useRouterModal();
+  const [activeModal, toModal] = useRouterModal();
 
   // заполняем стурктуру modals после заполнения основной структуры: Views, Panels
   useEffect(() => {

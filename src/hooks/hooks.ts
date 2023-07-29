@@ -22,7 +22,10 @@ import {
 
 import { RouterSettingsC } from "./constants";
 
-export const useRouterView = (): RouterViewI => {
+export const useRouterView = (): [
+  RouterViewI["view"],
+  RouterViewI["toView"]
+] => {
   const [view, toViewRouter] = useRecoilState(useView);
 
   const toView = (view) => {
@@ -34,10 +37,13 @@ export const useRouterView = (): RouterViewI => {
     };
   };
 
-  return { view, toView };
+  return [view, toView];
 };
 
-export const useRouterPanel = (): RouterPanelI => {
+export const useRouterPanel = (): [
+  RouterPanelI["panel"],
+  RouterPanelI["toPanel"]
+] => {
   const [panel, toPanelRouter] = useRecoilState(usePanel);
 
   const toPanel = (panel) => {
@@ -50,7 +56,7 @@ export const useRouterPanel = (): RouterPanelI => {
     };
   };
 
-  return { panel, toPanel };
+  return [panel, toPanel];
 };
 
 export const useRouterBack = (): ((step) => RouterBackI) => {
@@ -66,7 +72,10 @@ export const useRouterBack = (): ((step) => RouterBackI) => {
   };
 };
 
-export const useRouterPopout = (): RouterPopoutI => {
+export const useRouterPopout = (): [
+  RouterPopoutI["popout"],
+  RouterPopoutI["toPopout"]
+] => {
   const [popout, toPopoutRouter] = useRecoilState(usePopout);
 
   const toPopout = (popoutF, data) => {
@@ -78,10 +87,13 @@ export const useRouterPopout = (): RouterPopoutI => {
     };
   };
 
-  return { popout, toPopout };
+  return [popout, toPopout];
 };
 
-export const useRouterModal = (): RouterModalI => {
+export const useRouterModal = (): [
+  RouterModalI["activeModal"],
+  RouterModalI["toModal"]
+] => {
   const [activeModal, toModalRouter] = useRecoilState(useModal);
 
   const toModal = (modal, data) => {
@@ -94,20 +106,23 @@ export const useRouterModal = (): RouterModalI => {
     };
   };
 
-  return <RouterModalI>{ activeModal, toModal };
+  // @ts-ignore
+  return [activeModal, toModal];
 };
 
-export const useRouterSettings = (): RouterSettingsI<
-  typeof RouterSettingsC
-> => {
+export const useRouterSettings = (): [
+  RouterSettingsI<typeof RouterSettingsC>["settings"],
+  RouterSettingsI<typeof RouterSettingsC>["setSettings"]
+] => {
   const [settings, setState] = useRecoilState(useSettings);
 
   const setSettings = (value) => {
-    setState(value);
+    const mergedSettings = { ...settings, ...value };
+    setState(mergedSettings);
     return { action: "setSettings" };
   };
 
-  return { settings, setSettings };
+  return [settings, setSettings];
 };
 
 export const useRouterData: any = () => {
@@ -115,11 +130,11 @@ export const useRouterData: any = () => {
 };
 
 export const useRouterHooks = (): RouterHooksI => {
-  const { toView } = useRouterView();
-  const { toPanel } = useRouterPanel();
-  const { toPopout } = useRouterPopout();
-  const { toModal } = useRouterModal();
-  const { setSettings } = useRouterSettings();
+  const [, toView] = useRouterView();
+  const [, toPanel] = useRouterPanel();
+  const [, toPopout] = useRouterPopout();
+  const [, toModal] = useRouterModal();
+  const [, setSettings] = useRouterSettings();
   const toBack = useRouterBack();
   const dataRouter = useRouterData();
 

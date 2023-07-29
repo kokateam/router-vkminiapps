@@ -49,7 +49,7 @@ export interface RouterModalI {
 
 export interface RouterSettingsI<T extends settingsAtomI> {
   settings: T;
-  setSettings: (value: T) => {
+  setSettings: (value: Partial<T>) => {
     action: string;
   };
 }

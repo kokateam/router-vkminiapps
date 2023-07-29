@@ -16,8 +16,8 @@ export interface ViewProps {
 }
 
 const View: FC<ViewProps> = (props) => {
-  const { panel, toPanel } = useRouterPanel();
-  const { settings } = useRouterSettings();
+  const [panel, toPanel] = useRouterPanel();
+  const [settings] = useRouterSettings();
 
   useEffect(() => {
     if (settings.isInternal && settings.isSwipeBack) {

@@ -7,7 +7,7 @@ import { mergeObjects } from "../utils";
 
 const Root: FC = ({ props, children }) => {
   const { toPanel, toView, toBack } = useRouterHooks();
-  const { settings } = useRouterSettings();
+  const [settings] = useRouterSettings();
 
   const [historyState, setHistoryState] = useRecoilState(history);
   const [stateSettings, setSettingsState] = useRecoilState(settingsAtom);
