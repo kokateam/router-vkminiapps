@@ -5,6 +5,9 @@
   "main": "lib/index.js",
   "repository": "https://github.com/kokateam/router-vkminiapps",
   "author": "Aleksandr Kuznetsov <reyzi@internet.ru>",
+  "bugs": {
+    "url": "https://github.com/kokateam/router-vkminiapps/issues"
+  },
   "keywords": [
     "react",
     "vkontakte",
