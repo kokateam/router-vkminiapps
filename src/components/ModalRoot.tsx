@@ -4,11 +4,11 @@ import { useRecoilState } from "recoil";
 import { ModalRoot as VKModalRoot, ModalRootProps } from "@vkontakte/vkui";
 
 import { structure } from "../storage/atoms";
-import { useModal } from "../storage/selectors/history";
+import { useRouterModal } from "../hooks/hooks";
 
 const ModalRoot: FC<ModalRootProps> = (props) => {
   const [state, setState] = useRecoilState(structure);
-  const [activeModal, toModal] = useRecoilState(useModal);
+  const { activeModal, toModal } = useRouterModal();
 
   // заполняем стурктуру modals после заполнения основной структуры: Views, Panels
   useEffect(() => {

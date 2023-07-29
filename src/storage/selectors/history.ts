@@ -1,4 +1,4 @@
-import { selector } from "recoil";
+import { DefaultValue, selector } from "recoil";
 import { ReactNode } from "react";
 import { history as AtomHistory, structure as AtomStructure } from "../atoms";
 
@@ -322,13 +322,17 @@ export const useBack = selector<number | string>({
   },
 });
 
-export const usePopout = selector<ReactNode | null | undefined>({
+export const usePopout = selector<{
+  popout: ReactNode | null | undefined;
+  data: any;
+}>({
   key: "@kokateam/router-vkminiapps/selectors/HC8Z1n",
   get: ({ get }) => get(AtomHistory).activePopout,
   set: ({ set, get }, popout) => {
+    if (popout instanceof DefaultValue) return;
     const old = get(AtomHistory);
 
-    if (!popout) {
+    if (!popout.popout) {
       if (!old.activePopout)
         return console.error("[router] Активного popout и так нет.");
 
@@ -347,30 +351,37 @@ export const usePopout = selector<ReactNode | null | undefined>({
     // @ts-ignore
     set(AtomHistory, {
       ...old,
-      activePopout: popout,
-      history: [...old.history, { component: popout, type: "popout" }],
+      activePopout: popout.popout,
+      history: [
+        ...old.history,
+        { component: popout, type: "popout", data: popout.data },
+      ],
     });
   },
 });
 
-export const useModal = selector<string | null | number>({
+export const useModal = selector<
+  { modal: string | null | number; data: any } | string | null
+>({
   key: "@kokateam/router-vkminiapps/selectors/30i9Yx",
   get: ({ get }) => get(AtomHistory).activeModal,
   set: ({ set, get }, modal) => {
+    // @ts-ignore
+    if (!("modal" in modal) || !("data" in modal)) return;
     const old = get(AtomHistory);
 
-    if (isNum(modal)) {
-      if ((modal as number) >= 0)
+    if (typeof modal.modal === "number") {
+      if (modal.modal >= 0)
         return console.error("[router] Не может быть больше или равно 0.");
 
       // @ts-ignore
       set(AtomHistory, {
         ...old,
         back_action: "back",
-        back_step: modal,
+        back_step: modal.modal,
       });
 
-      return window.history.go(modal as number);
+      return window.history.go(modal.modal);
     }
 
     window.history.pushState({ route: "modal" }, "modal");
@@ -378,8 +389,14 @@ export const useModal = selector<string | null | number>({
     // @ts-ignore
     set(AtomHistory, {
       ...old,
-      activeModal: modal,
-      history: [...old.history, { id: modal, type: "modal" }],
+      activeModal: modal.modal,
+      history: [...old.history, { id: modal, type: "modal", data: modal.data }],
     });
   },
+});
+
+export const useData = selector<any>({
+  key: "fsddfs",
+  // берем последний элемент из history и возвращаем data
+  get: ({ get }) => get(AtomHistory).history.slice(-1)[0]?.data,
 });

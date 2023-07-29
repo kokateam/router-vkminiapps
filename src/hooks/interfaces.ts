@@ -26,7 +26,10 @@ export interface RouterBackI {
 
 export interface RouterPopoutI {
   popout: ReactNode | null;
-  toPopout: (popoutF: ReactNode | null) => {
+  toPopout: (
+    popoutF: ReactNode | null,
+    data?: any
+  ) => {
     action: string;
     mode: string;
   };
@@ -34,7 +37,10 @@ export interface RouterPopoutI {
 
 export interface RouterModalI {
   activeModal: string | null;
-  toModal: (modal: string | number) => {
+  toModal: (
+    modal: string | number,
+    data?: any
+  ) => {
     action: string;
     mode: string;
     value: string | number;
@@ -55,4 +61,5 @@ export interface RouterHooksI {
   toModal: RouterModalI["toModal"];
   setSettings: RouterSettingsI<typeof RouterSettingsC>["setSettings"];
   toBack: (step: number | string) => RouterBackI;
+  dataRouter: any;
 }

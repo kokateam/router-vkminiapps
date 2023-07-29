@@ -13,6 +13,7 @@ export interface historyAtomI {
     component?: ReactNode;
     type: "view" | "panel" | "popout" | "modal";
     main_view?: string;
+    data?: any;
   }>;
   views: { history: Array<string>; panels: object };
 }
