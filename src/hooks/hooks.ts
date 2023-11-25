@@ -1,23 +1,25 @@
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
   useBack,
+  useClearHistory,
+  useData,
+  useModal,
   usePanel,
   usePopout,
-  useView,
-  useModal,
   useSettings,
-  useData,
+  useView,
 } from "../storage/selectors";
 import { isNum } from "../utils";
 
 import {
   RouterBackI,
-  RouterPanelI,
-  RouterViewI,
-  RouterPopoutI,
-  RouterModalI,
+  RouterClearHistory,
   RouterHooksI,
+  RouterModalI,
+  RouterPanelI,
+  RouterPopoutI,
   RouterSettingsI,
+  RouterViewI,
 } from "./interfaces";
 
 import { RouterSettingsC } from "./constants";
@@ -129,21 +131,39 @@ export const useRouterData: any = () => {
   return useRecoilValue(useData);
 };
 
+export const useRouterClearHistory = (): [
+  RouterClearHistory["canUsed"],
+  RouterClearHistory["clearHistory"]
+] => {
+  const [canUsed, setState] = useRecoilState(useClearHistory);
+  const clearHistory = () => setState(true);
+
+  return [canUsed, clearHistory];
+};
+
 export const useRouterHooks = (): RouterHooksI => {
-  const [, toView] = useRouterView();
-  const [, toPanel] = useRouterPanel();
-  const [, toPopout] = useRouterPopout();
-  const [, toModal] = useRouterModal();
-  const [, setSettings] = useRouterSettings();
+  const [activeView, toView] = useRouterView();
+  const [panel, toPanel] = useRouterPanel();
+  const [popout, toPopout] = useRouterPopout();
+  const [activeModal, toModal] = useRouterModal();
+  const [settings, setSettings] = useRouterSettings();
+  const [canUseClearHistory, clearHistory] = useRouterClearHistory();
   const toBack = useRouterBack();
   const dataRouter = useRouterData();
 
   return {
+    activeView,
+    panel,
+    popout,
+    activeModal,
+    settings,
+    canUseClearHistory,
     toView,
     toPanel,
     toPopout,
     toModal,
     setSettings,
+    clearHistory,
     toBack,
     dataRouter,
   };

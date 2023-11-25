@@ -54,12 +54,24 @@ export interface RouterSettingsI<T extends settingsAtomI> {
   };
 }
 
+export interface RouterClearHistory {
+  canUsed: boolean;
+  clearHistory: () => void;
+}
+
 export interface RouterHooksI {
+  activeView: RouterViewI["view"];
+  panel: RouterPanelI["panel"];
+  popout: RouterPopoutI["popout"];
+  activeModal: RouterModalI["activeModal"];
+  settings: RouterSettingsI<typeof RouterSettingsC>["settings"];
+  canUseClearHistory: RouterClearHistory["canUsed"];
   toView: RouterViewI["toView"];
   toPanel: RouterPanelI["toPanel"];
   toPopout: RouterPopoutI["toPopout"];
   toModal: RouterModalI["toModal"];
   setSettings: RouterSettingsI<typeof RouterSettingsC>["setSettings"];
+  clearHistory: RouterClearHistory["clearHistory"];
   toBack: (step: number | string) => RouterBackI;
   dataRouter: any;
 }

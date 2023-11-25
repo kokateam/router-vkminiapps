@@ -396,7 +396,47 @@ export const useModal = selector<
 });
 
 export const useData = selector<any>({
-  key: "fsddfs",
+  key: "@kokateam/router-vkminiapps/selectors/mqIWr1",
   // берем последний элемент из history и возвращаем data
   get: ({ get }) => get(AtomHistory).history.slice(-1)[0]?.data,
+});
+
+export const useClearHistory = selector<boolean>({
+  key: "@kokateam/router-vkminiapps/selectors/0zkFLs",
+  get: ({ get }) => {
+    const history = get(AtomHistory).history;
+    return history.length > 1 && history[history.length - 1].type === "panel";
+  },
+  set: ({ set, get }) => {
+    const old = get(AtomHistory);
+    const lastItem = old.history[old.history.length - 1];
+
+    if (
+      old.history[old.history.length - 1].type !== "panel" ||
+      !lastItem.id ||
+      !lastItem.main_view
+    ) {
+      return;
+    }
+
+    const viewsPanels = { ...old.views.panels };
+    for (let view in viewsPanels) {
+      viewsPanels[view] = viewsPanels[view][0];
+    }
+
+    set(AtomHistory, {
+      ...old,
+      back_step: 0,
+      back_action: "",
+      activeView: lastItem.main_view,
+      activePanel: lastItem.id,
+      activeModal: null,
+      activePopout: null,
+      history: [{ id: lastItem.main_view, type: "view" }, { ...lastItem }],
+      views: {
+        history: [lastItem.main_view],
+        panels: viewsPanels,
+      },
+    });
+  },
 });
