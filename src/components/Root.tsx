@@ -1,33 +1,30 @@
-import React, { FC, useEffect, useRef } from "react";
+import { FC, useEffect, useRef } from "react";
 import { useRecoilState } from "recoil";
 import { useRouterHooks, useRouterSettings } from "../hooks/hooks";
 
-import { history, settings as settingsAtom } from "../storage/atoms";
+import { history as historyAtom } from "../storage/atoms";
 import { mergeObjects } from "../utils";
 
 const Root: FC = ({ props, children }) => {
   const { toPanel, toView, toBack } = useRouterHooks();
-  const [settings] = useRouterSettings();
+  const [settings, setSetting] = useRouterSettings();
+  const [history, setHistoryState] = useRecoilState(historyAtom);
 
-  const [historyState, setHistoryState] = useRecoilState(history);
-  const [stateSettings, setSettingsState] = useRecoilState(settingsAtom);
-
-  const stateRef = useRef(historyState);
-  stateRef.current = historyState;
+  const stateRef = useRef();
+  stateRef.current = { history, settings };
 
   // back event
   useEffect(() => {
     window.addEventListener("popstate", () => {
+      const { history, settings } = stateRef.current;
       if (!settings.isBack) return;
 
-      const stateCurrent = stateRef.current;
-
       setHistoryState({
-        ...stateCurrent,
-        back_step: stateCurrent.back_step === 0 ? -1 : stateCurrent.back_step,
+        ...history,
+        back_step: history.back_step === 0 ? -1 : history.back_step,
       });
 
-      switch (stateCurrent.back_action) {
+      switch (history.back_action) {
         case "panel":
           toPanel("@kokateam/router_event_back");
           break;
@@ -43,7 +40,7 @@ const Root: FC = ({ props, children }) => {
   // настройки роутера
   useEffect(() => {
     // @ts-ignore
-    setSettingsState(mergeObjects(stateSettings, props));
+    setSetting(mergeObjects(settings, props));
   }, []);
 
   return children;
