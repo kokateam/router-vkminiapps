@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React, { ReactNode, FC, useEffect } from "react";
 
 import { View as VKView } from "@vkontakte/vkui";
 import { useRouterPanel, useRouterSettings } from "../hooks/hooks";
@@ -7,12 +7,12 @@ import bridge from "@vkontakte/vk-bridge";
 
 export interface ViewProps {
   id: string;
-  popout?: React.ReactNode;
-  modal?: React.ReactNode;
+  popout?: ReactNode;
+  modal?: ReactNode;
   onTransition?(params: { isBack: boolean; from: string; to: string }): void;
   onSwipeBackStart?(): void;
   onSwipeBackCancel?(): void;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const View: FC<ViewProps> = (props) => {

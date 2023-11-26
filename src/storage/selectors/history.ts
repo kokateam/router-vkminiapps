@@ -421,10 +421,11 @@ export const useClearHistory = selector<boolean>({
 
     const viewsPanels = { ...old.views.panels };
     for (let view in viewsPanels) {
-      viewsPanels[view] = viewsPanels[view][0];
+      viewsPanels[view] = [viewsPanels[view][viewsPanels[view].length - 1]];
     }
 
-    for (let item of old.history) {
+    for (let i = 0; i < old.history.length - 1; i++) {
+      let item = old.history[i];
       if (item.type === "panel" || item.type === "modal") {
         window.history.go(-1);
       }

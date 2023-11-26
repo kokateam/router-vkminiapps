@@ -136,7 +136,18 @@ export const useRouterClearHistory = (): [
   RouterClearHistory["clearHistory"]
 ] => {
   const [canUsed, setState] = useRecoilState(useClearHistory);
-  const clearHistory = () => setState(true);
+  const [{ isBack }, setSettings] = useRouterSettings();
+
+  const clearHistory = () => {
+    const initBack = isBack;
+    setSettings({ isBack: false });
+
+    setState(true);
+
+    setTimeout(() => {
+      setSettings({ isBack: initBack });
+    }, 100);
+  };
 
   return [canUsed, clearHistory];
 };
